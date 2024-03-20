@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -53,7 +54,8 @@ fun Greeting(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         Text(
             text = "Hello Emarsys!",
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
+            style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp)
         )
 
         val context = LocalContext.current
