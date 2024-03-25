@@ -83,11 +83,14 @@ fun Greeting(modifier: Modifier = Modifier) {
         }) {
             Text("Fetch inbox messages")
             CoroutineScope(Dispatchers.Main).launch {
-                // Simulate fetching data with a delay
-                delay(1000) // Simulate network delay
-                messages.clear()
                 messages.addAll(sampleMessages)
             }
+        }
+
+        Button(onClick = {
+            Toast.makeText(context, "Add inbox tag", Toast.LENGTH_SHORT).show()
+        }) {
+            Text("Add inbox tag")
         }
 
         LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
