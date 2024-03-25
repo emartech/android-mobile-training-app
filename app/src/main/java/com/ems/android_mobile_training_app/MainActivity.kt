@@ -88,7 +88,7 @@ fun Greeting(modifier: Modifier = Modifier) {
         }
 
         Button(onClick = {
-            Toast.makeText(context, "Add inbox tag", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Add inbox tag clicked!", Toast.LENGTH_SHORT).show()
         }) {
             Text("Add inbox tag")
         }
