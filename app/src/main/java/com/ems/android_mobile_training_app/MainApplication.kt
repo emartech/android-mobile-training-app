@@ -5,14 +5,31 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.emarsys.Emarsys
+import com.emarsys.config.EmarsysConfig
+import com.emarsys.mobileengage.api.event.EventHandler
+import org.json.JSONObject
 
-class MainApplication : Application() {
+class MainApplication : Application(), EventHandler {
 
     override fun onCreate() {
         super.onCreate()
 
         createNotificationChannels()
+
+        val config = EmarsysConfig(application=this,
+            applicationCode="EMSCF-E601F"
+        )
+
+        Emarsys.setup(config)
+
+        Emarsys.push.setNotificationEventHandler(this)
+        Emarsys.push.setSilentMessageEventHandler(this)
+        Emarsys.inApp.setEventHandler(this)
+        Emarsys.onEventAction.setOnEventActionEventHandler(this)
+        Emarsys.geofence.setEventHandler(this)
     }
 
 // https://help.emarsys.com/hc/en-us/articles/360003269493-Android-integration-Mobile-Engage-Android-notification-channels
@@ -45,5 +62,9 @@ class MainApplication : Application() {
         val channel = NotificationChannel(id, name, importance)
         channel.description = description
         notificationManager.createNotificationChannel(channel)
+    }
+
+    override fun handleEvent(context: Context, eventName: String, payload: JSONObject?) {
+        Toast.makeText(context, "Push tapped! $eventName | $payload", Toast.LENGTH_SHORT).show()
     }
 }
